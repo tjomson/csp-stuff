@@ -10,7 +10,7 @@ int main()
     // only second precision, and is affected by NTP
     time_t before = time(NULL);
     // Sleep(2500); // for windows
-    sleep(2.5);
+    usleep(2500000);
     time_t after = time(NULL);
     time_t elapsed = difftime(after, before);
     printf("Elapsed: %lu ms\n", elapsed * 1000);
@@ -20,7 +20,7 @@ int main()
     struct timeval stop, begin;
     gettimeofday(&begin, NULL);
     // Sleep(2500); // for windows
-    sleep(2.5);
+    usleep(2500000);
     gettimeofday(&stop, NULL);
     printf("Elapsed: %lu ms\n", (stop.tv_sec - begin.tv_sec) * 1000 + (stop.tv_usec - begin.tv_usec) / 1000);
 
@@ -31,7 +31,7 @@ int main()
     struct timespec start, finish;
     clock_gettime(CLOCK_MONOTONIC_RAW, &start);
     // Sleep(2500); // for windows
-    sleep(2.5);
+    usleep(2500000);
     clock_gettime(CLOCK_MONOTONIC_RAW, &finish);
     // need to sum seconds and nanoseconds
     long elapsed_time_ms = (finish.tv_sec - start.tv_sec) * 1000 + (finish.tv_nsec - start.tv_nsec) / 1000000;
