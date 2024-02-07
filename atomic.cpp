@@ -1,10 +1,6 @@
 #include <iostream>  // Only for I/O 
 #include <thread> // posix threads
-#include <mutex>  // mutexes
-
-
-// We declare a mutex to lock shared resource
-std::mutex mut;
+#include <atomic>
 
 // Declare a counter 
 std::atomic_int counter = 0; 

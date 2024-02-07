@@ -15,7 +15,7 @@ int main()
     time_t elapsed = difftime(after, before);
     printf("Elapsed: %lu ms\n", elapsed * 1000);
 
-    // method: 2: don't do this either
+    // method 2: don't do this either
     // still affected by NTP and system clock
     struct timeval stop, begin;
     gettimeofday(&begin, NULL);

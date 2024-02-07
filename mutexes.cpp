@@ -23,10 +23,10 @@ int main(int argc, char *argv[])
 {
     
     if (argc != 2) 
-        {
+    {
         std::cout << "Please input the amount of threads to spawn" << std::endl;
         return 1;
-        }
+    }
     
     int num_threads = atoi(argv[1]);
 
@@ -37,18 +37,18 @@ int main(int argc, char *argv[])
     int args[] = {41, 42, 43, 44};
     
     for (int i = 0; i < num_threads; ++i)
-        {
-            // The following line shows simpler way if args are not needed
-            // threads[i] = std::thread(inc);
-            threads[i] = std::thread([&args, i]() {
-                inc(args[i]);
-            });
-        };
+    {
+        // The following line shows simpler way if args are not needed
+        // threads[i] = std::thread(inc);
+        threads[i] = std::thread([&args, i]() {
+            inc(args[i]);
+        });
+    };
     
     for (int i = 0; i < num_threads; i++)
-        { 
-            threads[i].join();
-         };
+    { 
+        threads[i].join();
+    };
     
     std::cout << counter << std::endl; 
 }

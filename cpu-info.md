@@ -27,3 +27,7 @@ Show core utilization and active processes
 `htop`
 
 `q` to exit again
+
+## monitor core frequency
+
+`watch -n 1 'cat /proc/cpuinfo | grep "MHz"'`
