@@ -1,0 +1,43 @@
+\chapter*{Exercise session for lecture 4}
+In this exercise session, we will look into the memory hierarchy, by investigating array accesses. To do this, we will run the example code on Learnit and use the tracing tool perf to give us further insight.
+
+\section*{Array accesses}
+We are going to run with the fairly basic example below.
+
+\textbf{File: caching.c}
+\lstinputlisting[language=C]{caching.c}
+
+It allocates memory and then accesses that in two different patterns, horizontally and vertically, measuring the time it takes for both to finish. Those patterns are visualized below.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{vertical_horizontal.png}
+    \caption{Horizontal vs. vertical array access}
+    \label{fig:my_label}
+\end{figure}
+
+Use the provided Makefile to compile the program. This will produce multiple outputs. Run the caching-0 program and ignore the other output files for now. Determine whether horizontal or vertical array accesses are faster. Why is one faster than the other? Is it always faster?
+
+\section*{The perf tracing tool}
+To better understand why either pattern is faster, we can use perf. The perf tool gives us access to certain performance counters, such as number of CPU cycles, CPU migrations, cache misses etc. To see a more extensive list of performance commands run the following command \\
+\texttt{\$ perf list}
+
+If you have access to another Linux environment, e.g. on your laptop, try and compare what perf reports on the server and your own environment. Is there are difference?
+
+Perf can be started by running the following: \\
+\texttt{\$ perf stat -e <events...> <command>}
+
+More examples of how to use perf can be found \href{https://www.brendangregg.com/perf.html}{here}.
+
+In order to reason about the array access patterns, you can the following command: \\
+\texttt{\$ perf stat -e cycles,instructions,L1-icache-load-misses,L1-dcache-load-misses, LLC-load-misses,cache-misses,stalled-cycles-frontend,stalled-cycles-backend, \\
+branch-misses,iTLB-load-misses,dTLB-load-misses ./horizontal-0}
+
+To compare the patterns, the caching.c file has also been split into the two files, horizontal.c and vertical.c. To compare the performance, you can run the above perf command on horizontal-0 and vertical-0 and leave the rest of the files for now. 
+
+The given perf command gives an extensive output of performance metrics. Which metrics seems to have an impact on performance? Why is that?
+
+\section*{Optimization}
+The provided Makefile compiles two versions of all the program. One is compiled with the gcc flag -O0 and one is compiled with the flag -O3. When compiling C programs, you can give an optimization flag for GCC (e.g. gcc -O0, gcc -O3) to set the “aggressiveness” of the compiler in regards to optimization. -O0 will not optimize anything, while -O3 will optimize everything possible.
+
+With perf, compare the results of running the optimized with results gathered from the unoptimized. What is the major differences?

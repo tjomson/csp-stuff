@@ -1,0 +1,143 @@
+\documentclass[12pt]{report} % document type and default text size
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc} 
+\usepackage[english]{babel} % language to use for automated strings, like indholdsfortegnelse as well as danish-specific typesetting
+\usepackage{fancyhdr} % Header package
+\usepackage{lastpage} % Get number of pages
+\usepackage{float} % Used for placing images in precise locations
+\usepackage{lmodern} % Font typeface family
+\usepackage{graphicx} % package for including images
+\usepackage{subcaption} % Used for placing multiple images next to eachother
+\usepackage{caption} % Control width of captions
+\usepackage{titlesec} % used for custom chapter naming (removing "Chapter" when creating a new chapter)
+\usepackage{geometry} % Margins
+\usepackage{etoolbox} % used to make header things appear on new chapter pages.
+\usepackage{tocloft} % Used for adding dots to the table of contents for chapters
+\usepackage{longtable} % Multi-page tables
+\usepackage{booktabs} % Pretty tables
+\usepackage[usenames, dvipsnames]{xcolor} % Give text custom colour
+\usepackage{titlesec} % Used for changing spacing between header and text
+\usepackage{listings} % Used for inserting code snippits
+\usepackage{tabularx}
+\usepackage{datetime2} % Changes \today formatting to iso-format (YYYY-MM-DD)
+\usepackage{hyperref}
+\usepackage{units}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing,arrows.meta}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lastpage}
+\usepackage{cleveref}
+\geometry{
+	a4paper,
+	total={210mm,297mm},
+	left=20mm,
+	right=20mm,
+	top=30mm,
+	bottom=30mm,
+}
+% For citing and sources:
+\usepackage[style=authortitle, backend=biber, natbib=true, url=true]{biblatex}
+%\addbibresource{references.bib}
+
+\usepackage{tabu} % Used for restricting size horizontal size of tables
+
+% Scenario template imports
+\usepackage{enumitem}
+\usepackage{xspace}
+\usepackage{calc}
+
+% Setting up my header
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Computer Systems Performance, exercises}
+\rhead{2022-02-22}
+%\cfoot{Page \thepage\ of \pageref{LastPage}}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{fancy}}{}{} %Redefine the chapter style to include the fancy header.
+\addtocontents{toc}{\protect\thispagestyle{fancy}} %Add the fancy header to the table of contents as well.
+
+
+\renewcommand{\footrulewidth}{0.4pt}% Default \footrulewidth is 0pt
+\lfoot{\leftmark}
+\cfoot{}
+\rfoot{Page \thepage \space of \pageref{LastPage}}
+\setlength{\headheight}{15pt}
+
+% Make multi-line footnotes indented properly with left margin
+\makeatletter
+\renewcommand\@makefntext[1]{\leftskip=2em\hskip-2em\@makefnmark#1}
+\makeatother
+
+% Macro to easily make math-mode text different colours. Needs xcolor. https://tex.stackexchange.com/questions/21598/how-to-color-math-symbols
+\makeatletter
+\def\mathcolor#1#{\@mathcolor{#1}}
+\def\@mathcolor#1#2#3{%
+  \protect\leavevmode
+  \begingroup
+    \color#1{#2}#3%
+  \endgroup
+}
+\makeatother
+
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+\titlespacing*\chapter{0pt}{-15pt plus 4pt minus 2pt}{8pt plus 2pt minus 2pt} % change spacing between header and text
+\titlespacing*\section{0pt}{12pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt} % change spacing between section header and text
+\titlespacing*\subsection{0pt}{12pt plus 4pt minus 2pt}{2pt plus 2pt minus 2pt}
+\linespread{1.0} % change line spacing (default is 1.0)
+
+%\renewcommand{\familydefault}{\sfdefault}
+%\addto\captionsdanish{\renewcommand*\contentsname{Indholdsfortegnelse}} % change name of indholdsfortegnelse to show "Indholdsfortegnelse" instead of "Indhold"
+\titleformat{\chapter}[hang]{\bfseries\LARGE}{\thechapter}{2pc}{} % redefining our chapter header
+\title{CSP Exercise - Week 4}
+\author{Benjamin Møller Noer}
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % Add dots in the table of contents for chapters
+
+\lstdefinelanguage{sharpf}{%
+  language     = [Sharp]C,
+  morekeywords = {let,member,then,type,of,module,match,with,when,mutable,inline,do,rec,fun,val},
+}
+
+% Definitions and settings for code snippits
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize\ttfamily,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+    language=sharpf
+}
+\lstset{style=mystyle}
+
+\begin{document}
+
+%\tableofcontents\thispagestyle{fancy}
+%\clearpage
+
+%\includepdf[pages=-,pagecommand={\thispagestyle{empty}},offset={0 0},scale=.95]{./submission_of_written_work_plain}
+%\clearpage
+%\pagenumbering{arabic}
+
+\setlength{\parindent}{0pt} % turn off indentation
+\setlength{\parskip}{1em}
+\input{Exercise.tex}
+	
+\end{document}
